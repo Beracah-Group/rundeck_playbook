@@ -1,0 +1,9 @@
+- hosts: rundeck_server
+  roles:
+    - common
+    - rundeck_server
+
+- hosts: rundeck_client
+  roles:
+    - common
+    - rundeck_client
