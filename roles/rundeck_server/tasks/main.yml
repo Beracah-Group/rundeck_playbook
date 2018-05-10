@@ -1,0 +1,14 @@
+- name: installs java
+  apt:
+    name: openjdk-8-jdk
+    state: latest
+    update_cache: yes
+
+- name: sets up rundeck
+  include: 'setup_rundeck.yml'
+
+- name: sets up oauth
+  include: 'setup_auth_proxy.yml'
+
+- name: sets up nginx
+  include: 'setup_nginx.yml'
