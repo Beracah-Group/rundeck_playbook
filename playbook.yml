@@ -1,9 +1,21 @@
 - hosts: rundeck_server
+  become: true
+  vars:
+    rundeck_server_ip: "{{ rundeck_host }}"
+    client_id: "{{ client_id }}"
+    client_secret: "{{ client_secret }}"
+    cookie_secret: "{{ cookie_secret }}"
+    email_domain: "{{ email_domain }}"
+    rundeck_host: "{{ rundeck_host }}"
+    ansible_python_interpreter: "/usr/bin/python3"
   roles:
     - common
     - rundeck_server
 
 - hosts: rundeck_client
+  become: true
+  vars:
+    ansible_python_interpreter: "/usr/bin/python3"
   roles:
     - common
     - rundeck_client
