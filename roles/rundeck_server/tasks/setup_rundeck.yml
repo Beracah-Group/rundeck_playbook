@@ -1,0 +1,36 @@
+- name: updates system
+  apt:
+    update_cache: yes
+
+- name: ensures rundeck ssh directory exists
+  file:
+    path: /var/lib/rundeck/.ssh/
+    state: directory
+
+- name: downloads rundeck package
+  apt:
+    deb: http://download.rundeck.org/deb/rundeck_2.11.1-1-GA_all.deb
+
+- name: setups up rundeck server ip
+  template:
+    src: templates/rundeck_config_properties.j2
+    dest: /etc/rundeck/rundeck-config.properties
+
+- name: setups up rundeck server ip
+  copy:
+    src: templates/web.xml
+    dest: /var/lib/rundeck/exp/webapp/WEB-INF/web.xml
+
+- name: copy ssh keys
+  copy:
+    src: ../../files/ssh_keys/id_rsa
+    dest: /var/lib/rundeck/.ssh/id_rsa
+
+- name: sets up ssh access mode
+  command: chmod 400 /var/lib/rundeck/.ssh/id_rsa
+  become: true
+
+- name: restart rundeck
+  service:
+    name: rundeckd
+    state: restarted

@@ -1,0 +1,18 @@
+#loglevel.default is the default log level for jobs: ERROR,WARN,INFO,VERBOSE,DEBUG
+loglevel.default=INFO
+rdeck.base=/var/lib/rundeck
+
+#rss.enabled if set to true enables RSS feeds that are public (non-authenticated)
+rss.enabled=false
+# change hostname here
+grails.serverURL=http://{{ rundeck_host }}
+dataSource.dbCreate = update
+dataSource.url = jdbc:h2:file:/var/lib/rundeck/data/rundeckdb;MVCC=true
+
+rundeck.security.authorization.preauthenticated.enabled=true
+rundeck.security.authorization.preauthenticated.attributeName=REMOTE_USER_GROUPS
+rundeck.security.authorization.preauthenticated.delimiter=;
+rundeck.security.authorization.preauthenticated.userNameHeader=X-Forwarded-User
+rundeck.security.authorization.preauthenticated.userRolesHeader=X-Forwarded-Roles
+rundeck.security.authorization.preauthenticated.redirectLogout=true
+rundeck.security.authorization.preauthenticated.redirectUrl=/oauth2/sign_in
