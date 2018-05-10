@@ -1,0 +1,14 @@
+- name: creates rundeck user
+  user:
+    name: rundeck
+    state: present
+
+- name: ensures ssh directory exists
+  file:
+    path: /home/rundeck/.ssh
+    state: directory
+
+- name: adds sh public key
+  copy:
+    src: ../../files/ssh_keys/id_rsa.pub
+    dest: /home/rundeck/.ssh/authorized_keys
