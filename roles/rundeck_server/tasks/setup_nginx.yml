@@ -1,0 +1,14 @@
+- name: installs nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: configures nginx
+  copy:
+    src: templates/nginx.conf.j2
+    dest: /etc/nginx/sites-available/default
+
+- name: restarts nginx
+  service:
+    name: nginx
+    state: restarted
