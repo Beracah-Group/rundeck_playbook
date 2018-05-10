@@ -1,0 +1,11 @@
+[Unit]
+Description=Start oauth proxy
+After=syslog.target
+[Service]
+ExecStart=/bin/bash -c "oauth2_proxy -config=/etc/oauth_proxy/oauth.conf"
+RestartSec=5s
+Restart=on-success
+User=root
+
+[Install]
+WantedBy=multi-user.target

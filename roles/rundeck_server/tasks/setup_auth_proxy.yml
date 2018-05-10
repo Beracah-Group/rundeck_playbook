@@ -1,0 +1,44 @@
+- name: ensures tmp folder exists
+  file:
+    path: /tmp/oauth2
+    state: directory
+
+- name: ensures tmp folder exists
+  file:
+    path: /etc/oauth_proxy
+    state: directory
+
+- name: downloads oauth_proxy
+  unarchive:
+    src: https://github.com/bitly/oauth2_proxy/releases/download/v2.2/oauth2_proxy-2.2.0.linux-amd64.go1.8.1.tar.gz
+    dest: /tmp/oauth2
+    remote_src: yes
+
+- name: copies binary to bin folder
+  copy:
+    src: /tmp/oauth2/oauth2_proxy-2.2.0.linux-amd64.go1.8.1/oauth2_proxy
+    dest: /usr/local/bin/
+    remote_src: yes
+
+- name: allows oauth to be executed
+  command: chmod +x /usr/local/bin/oauth2_proxy
+  become: true
+
+- name: copies proxy config
+  template:
+    src: templates/auth.config.j2
+    dest: /etc/oauth_proxy/oauth.conf
+
+- name: creates oauth_service
+  copy:
+    src: files/oauth.service
+    dest: /etc/systemd/system/oauth_proxy.service
+
+- name: enables oauth systemd service
+  command: sudo systemctl enable oauth_proxy.service
+
+- name: start oauth proxy
+  service:
+    name: oauth_proxy
+    state: started
+
