@@ -27,7 +27,7 @@
     dest: /var/lib/rundeck/.ssh/id_rsa
 
 - name: sets up ssh access mode
-  command: chmod 400 /var/lib/rundeck/.ssh/id_rsa
+  command: chmod 755 /var/lib/rundeck/.ssh/id_rsa
   become: true
 
 - name: restart rundeck
