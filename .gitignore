@@ -1,2 +1,3 @@
 hosts
 files/ssh_keys/*
+*.retry

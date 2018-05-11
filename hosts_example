@@ -1,0 +1,4 @@
+[rundeck_server]
+rundeck_server_host ansible_connection=ssh ansible_port=22 ansible_ssh_pass=ssh_password ansible_user=ssh_user
+[rundeck_client]
+rundeck_client_host ansible_connection=ssh ansible_port=22 ansible_ssh_pass=ssh_password ansible_user=ssh_user
