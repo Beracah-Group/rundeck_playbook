@@ -14,3 +14,15 @@ server {
                 proxy_read_timeout 30;
         }
 }
+
+server {
+        listen 8089;
+        location / {
+
+        access_by_lua_block{
+                username = ngx.req.get_headers()['X-Forwarded-Email']
+                require("RundeckACL").authorize(username)
+                }
+        proxy_pass http://127.0.0.1:4440;
+        }
+}

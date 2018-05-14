@@ -6,6 +6,11 @@
   file:
     path: /var/lib/rundeck/.ssh/
     state: directory
+    
+- name: ensures rundeck acl directory exists
+  file:
+    path: /etc/rundecACL
+    state: directory
 
 - name: downloads rundeck package
   apt:
@@ -29,6 +34,9 @@
 - name: sets up ssh access mode
   command: chmod 755 /var/lib/rundeck/.ssh/id_rsa
   become: true
+
+- name: enable persistent rundeck service
+  command: sudo systemctl enable rundeckd.service
 
 - name: restart rundeck
   service:
